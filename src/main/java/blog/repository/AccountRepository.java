@@ -13,4 +13,8 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
   List<Account> findAll();
 
   List<Account> findByUsername(@Param("username") String username);
+
+  Account save(@Param("account") Account account);
+
+  void delete(@Param("account") Account account);
 }
