@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo yum install java-1.8.0 -y
+aws s3 cp s3://bernie-mb3/mb3-1.0.jar mb3-1.0.jar
+java -jar mb3-1.0.jar

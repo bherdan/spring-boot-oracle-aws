@@ -1,0 +1,20 @@
+#!/bin/bash
+sudo su
+yum update -y
+yum install -y httpd
+yum install -y mod_ssl
+
+echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/ssl.conf
+echo "    ProxyPreserveHost On" >> /etc/httpd/conf.d/ssl.conf
+echo "    ProxyPass / http://internal-MB3-PrivateLB-170250207.us-east-1.elb.amazonaws.com/" >> /etc/httpd/conf.d/ssl.conf
+echo "    ProxyPassReverse / http://internal-MB3-PrivateLB-170250207.us-east-1.elb.amazonaws.com/" >> /etc/httpd/conf.d/ssl.conf
+echo "</VirtualHost>" >> /etc/httpd/conf.d/ssl.conf
+systemctl start httpd
+systemctl enable httpd
+usermod -a -G apache ec2-user
+chown -R ec2-user:apache /var/www
+chmod 2775 /var/www
+find /var/www -type d -exec chmod 2775 {} \;
+find /var/www -type f -exec chmod 0664 {} \;
+
+echo  "hello world" >  /var/www/html/hello.html

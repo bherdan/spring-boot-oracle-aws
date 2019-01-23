@@ -1,0 +1,8 @@
+// Clean Database
+drop table account;
+drop sequence hibernate_sequence;
+
+create sequence hibernate_sequence start with 1 increment by 1;
+create table account (id number(19,0) not null, account_type varchar2(255 char) not null, balance double precision not null, username varchar2(255 char) not null, primary key (id))
+
+select * from account;
